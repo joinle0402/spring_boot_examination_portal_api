@@ -1,4 +1,4 @@
-package com.johnsmith.springbootstudentmanagementsystem.payloads.requests;
+package com.johnsmith.examportal.api.payloads.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

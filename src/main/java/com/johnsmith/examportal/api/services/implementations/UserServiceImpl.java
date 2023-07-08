@@ -1,6 +1,6 @@
-package com.johnsmith.examportal.api.configurations.services.implementations;
+package com.johnsmith.examportal.api.services.implementations;
 
-import com.johnsmith.examportal.api.configurations.services.interfaces.UserService;
+import com.johnsmith.examportal.api.services.interfaces.UserService;
 import com.johnsmith.examportal.api.entities.User;
 import com.johnsmith.examportal.api.exceptions.ApiException;
 import com.johnsmith.examportal.api.repositories.UserRepository;

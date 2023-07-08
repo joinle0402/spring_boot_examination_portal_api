@@ -1,30 +1,29 @@
-package com.johnsmith.springbootstudentmanagementsystem.controllers;
+package com.johnsmith.examportal.api.controllers;
 
-import com.johnsmith.springbootstudentmanagementsystem.mapper.UserMapper;
-import com.johnsmith.springbootstudentmanagementsystem.payloads.requests.LoginRequest;
-import com.johnsmith.springbootstudentmanagementsystem.payloads.requests.RegisterRequest;
-import com.johnsmith.springbootstudentmanagementsystem.services.interfaces.AuthService;
+import com.johnsmith.examportal.api.payloads.requests.LoginRequest;
+import com.johnsmith.examportal.api.payloads.requests.RegisterRequest;
+import com.johnsmith.examportal.api.services.interfaces.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@CrossOrigin("*")
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/auth")
 public class AuthController {
     private final AuthService authService;
-    private final UserMapper userMapper;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(
-                this.userMapper.userToUserResponse(this.authService.register(request))
-        );
+        System.out.println("RegisterRequest: "+ request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.authService.register(request).toUserResponse());
     }
 
     @PostMapping("/login")

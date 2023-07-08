@@ -1,7 +1,7 @@
-package com.johnsmith.springbootstudentmanagementsystem.configurations;
+package com.johnsmith.examportal.api.configurations;
 
-import com.johnsmith.springbootstudentmanagementsystem.security.JwtAuthenticationEntryPoint;
-import com.johnsmith.springbootstudentmanagementsystem.security.JwtAuthenticationRequestFilter;
+import com.johnsmith.examportal.api.security.JwtAuthenticationEntryPoint;
+import com.johnsmith.examportal.api.security.JwtAuthenticationRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,7 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private final UserDetailsService userDetailsService;
@@ -30,8 +31,8 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(httpRequest -> {
                     httpRequest.requestMatchers("/api/v1/auth/register", "/api/v1/auth/login").permitAll();
                     httpRequest.requestMatchers("/api/v1/user/**").hasAnyAuthority("USER", "ADMIN");
@@ -44,6 +45,12 @@ public class SecurityConfiguration {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .build();
     }
+
+    @Bean
+    GrantedAuthorityDefaults grantedAuthorityDefaults() {
+        return new GrantedAuthorityDefaults("");
+    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

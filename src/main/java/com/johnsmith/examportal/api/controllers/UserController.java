@@ -1,7 +1,7 @@
-package com.johnsmith.springbootstudentmanagementsystem.controllers;
+package com.johnsmith.examportal.api.controllers;
 
-import com.johnsmith.springbootstudentmanagementsystem.mapper.UserMapper;
-import com.johnsmith.springbootstudentmanagementsystem.services.interfaces.UserService;
+import com.johnsmith.examportal.api.entities.User;
+import com.johnsmith.examportal.api.services.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +18,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final UserMapper userMapper;
 
     @GetMapping
     public ResponseEntity<?> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(
-                this.userService.findAll().stream()
-                        .map(user -> this.userMapper.userToUserResponse(user))
-                        .collect(Collectors.toSet())
+                this.userService.findAll().stream().map(User::toUserResponse).collect(Collectors.toSet())
         );
     }
 

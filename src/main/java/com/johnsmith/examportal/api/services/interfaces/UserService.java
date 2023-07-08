@@ -1,4 +1,4 @@
-package com.johnsmith.examportal.api.configurations.services.interfaces;
+package com.johnsmith.examportal.api.services.interfaces;
 
 import com.johnsmith.examportal.api.entities.User;
 

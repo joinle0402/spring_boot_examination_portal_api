@@ -1,6 +1,6 @@
-package com.johnsmith.springbootstudentmanagementsystem.repositories;
+package com.johnsmith.examportal.api.repositories;
 
-import com.johnsmith.springbootstudentmanagementsystem.entities.Role;
+import com.johnsmith.examportal.api.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

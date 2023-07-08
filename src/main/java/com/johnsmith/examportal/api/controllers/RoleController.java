@@ -1,8 +1,8 @@
-package com.johnsmith.springbootstudentmanagementsystem.controllers;
+package com.johnsmith.examportal.api.controllers;
 
-import com.johnsmith.springbootstudentmanagementsystem.payloads.requests.RoleRequest;
-import com.johnsmith.springbootstudentmanagementsystem.payloads.responses.RoleResponse;
-import com.johnsmith.springbootstudentmanagementsystem.services.interfaces.RoleService;
+import com.johnsmith.examportal.api.payloads.requests.RoleRequest;
+import com.johnsmith.examportal.api.payloads.responses.RoleResponse;
+import com.johnsmith.examportal.api.services.interfaces.RoleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

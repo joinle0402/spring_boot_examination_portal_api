@@ -1,4 +1,4 @@
-package com.johnsmith.springbootstudentmanagementsystem.exceptions;
+package com.johnsmith.examportal.api.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

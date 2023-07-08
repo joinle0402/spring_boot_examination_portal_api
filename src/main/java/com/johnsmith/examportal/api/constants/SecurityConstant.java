@@ -1,4 +1,4 @@
-package com.johnsmith.springbootstudentmanagementsystem.constants;
+package com.johnsmith.examportal.api.constants;
 
 public class SecurityConstant {
     public static final String AUTHORIZATION_HEADER = "Authorization";

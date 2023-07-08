@@ -1,6 +1,6 @@
-package com.johnsmith.springbootstudentmanagementsystem.security;
+package com.johnsmith.examportal.api.security;
 
-import com.johnsmith.springbootstudentmanagementsystem.exceptions.ApiException;
+import com.johnsmith.examportal.api.exceptions.ApiException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -47,16 +47,16 @@ public class JwtUtils {
                     .getBody();
         } catch (UnsupportedJwtException exception) {
             log.error("Unsupported jwt: {}", exception.getLocalizedMessage());
-            throw new ApiException("Token not support.", HttpStatus.UNAUTHORIZED.value());
+            throw new ApiException(HttpStatus.UNAUTHORIZED, "Token not support.");
         } catch (SignatureException | MalformedJwtException exception) {
             log.error("Token is invalid format: {}", exception.getLocalizedMessage());
-            throw new ApiException("Token is invalid format.", HttpStatus.UNAUTHORIZED.value());
+            throw new ApiException(HttpStatus.UNAUTHORIZED, "Token is invalid format.");
         } catch (ExpiredJwtException exception) {
             log.error("Token is expired: {}", exception.getLocalizedMessage());
-            throw new ApiException("Token is expired.", HttpStatus.UNAUTHORIZED.value());
+            throw new ApiException(HttpStatus.UNAUTHORIZED, "Token is expired.");
         } catch (Exception exception) {
             log.error("{}", exception.getLocalizedMessage());
-            throw new ApiException("Unknown error.", HttpStatus.UNAUTHORIZED.value());
+            throw new ApiException(HttpStatus.UNAUTHORIZED, "Unknown error.");
         }
     }
 

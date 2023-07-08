@@ -1,4 +1,4 @@
-package com.johnsmith.examportal.api.configurations.services.implementations;
+package com.johnsmith.examportal.api.services.implementations;
 
 import com.johnsmith.examportal.api.entities.Role;
 import com.johnsmith.examportal.api.entities.User;
@@ -11,15 +11,15 @@ import com.johnsmith.examportal.api.repositories.RoleRepository;
 import com.johnsmith.examportal.api.repositories.UserRepository;
 import com.johnsmith.examportal.api.security.JwtUtils;
 import com.johnsmith.examportal.api.security.UserPrincipal;
-import com.johnsmith.examportal.api.configurations.services.interfaces.AuthService;
+import com.johnsmith.examportal.api.services.interfaces.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,13 +47,24 @@ public class AuthServiceImpl implements AuthService {
             )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String accessToken = this.jwtUtils.generateToken(userDetails);
-        return LoginResponse.builder().accessToken(accessToken).build();
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        String accessToken = this.jwtUtils.generateToken(userPrincipal);
+        return LoginResponse.builder()
+                .user(
+                        UserPrincipalResponse.builder()
+                                .fullname(userPrincipal.getFullname())
+                                .username(userPrincipal.getUsername())
+                                .avatar(userPrincipal.getAvatar())
+                                .roles(userPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet()))
+                                .build()
+                )
+                .accessToken(accessToken)
+                .build();
     }
 
     @Override
     public User register(RegisterRequest request) {
+        System.out.println("request.getUsername(): " + request.getUsername());
         Optional<User> user = this.userRepository.findByUsername(request.getUsername());
         if (user.isPresent()) {
             throw new ApiException(HttpStatus.CONFLICT, "User already exists!");
@@ -75,10 +86,5 @@ public class AuthServiceImpl implements AuthService {
         userToCreate.setRoles(roles);
         userToCreate.setCreatedAt(LocalDateTime.now());
         return this.userRepository.save(userToCreate);
-    }
-
-    @Override
-    public UserPrincipalResponse getUserPrincipal(UserPrincipal userPrincipal) {
-        return UserPrincipalResponse.of(userPrincipal);
     }
 }

@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 1106
-      MYSQL_DATABASE: spring_boot_angular_student_management_system
+      MYSQL_DATABASE: spring_boot_examination_portal_system
       MYSQL_USER: john
       MYSQL_PASSWORD: 1106
     ports:

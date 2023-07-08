@@ -1,4 +1,4 @@
-package com.johnsmith.springbootstudentmanagementsystem.security;
+package com.johnsmith.examportal.api.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

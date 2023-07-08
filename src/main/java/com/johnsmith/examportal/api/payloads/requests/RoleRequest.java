@@ -1,4 +1,4 @@
-package com.johnsmith.springbootstudentmanagementsystem.payloads.requests;
+package com.johnsmith.examportal.api.payloads.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

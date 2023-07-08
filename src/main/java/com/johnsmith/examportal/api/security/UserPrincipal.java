@@ -1,11 +1,12 @@
-package com.johnsmith.springbootstudentmanagementsystem.security;
+package com.johnsmith.examportal.api.security;
 
-import com.johnsmith.springbootstudentmanagementsystem.entities.User;
+import com.johnsmith.examportal.api.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,13 +20,16 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class UserPrincipal implements UserDetails {
+    private String fullname;
     private String username;
     private String password;
     private String avatar;
     private Collection<? extends GrantedAuthority> authorities = new ArrayList<>();
 
     public UserPrincipal(User user) {
+        this.fullname = user.getFullname();
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.avatar = user.getAvatar();

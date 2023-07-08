@@ -1,26 +1,20 @@
 package com.johnsmith.examportal.api.entities;
 
 import com.johnsmith.examportal.api.constants.TableConstant;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.NaturalId;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Setter
 @Getter
@@ -29,26 +23,21 @@ import java.util.Set;
 @Builder
 @ToString
 @Entity
-@Table(name = TableConstant.TABLE_ROLES, uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                TableConstant.COLUMN_NAME
-        })
-})
-public class Role {
-
+@Table(name = TableConstant.TABLE_QUESTIONS)
+public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @NaturalId(mutable = true)
-    @Column(nullable = false, unique = true)
-    private String name;
-
-    @Column
+    @Column(length = 5000)
+    private String content;
     private String description;
+    private String optionA;
+    private String optionB;
+    private String optionC;
+    private String optionD;
+    private String answer;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<User> users = new HashSet<>();
-
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Quiz quiz;
 }

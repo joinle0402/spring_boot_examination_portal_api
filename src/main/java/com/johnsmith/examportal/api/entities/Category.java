@@ -1,5 +1,7 @@
 package com.johnsmith.examportal.api.entities;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.johnsmith.examportal.api.constants.TableConstant;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -8,9 +10,10 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,26 +32,24 @@ import java.util.Set;
 @Builder
 @ToString
 @Entity
-@Table(name = TableConstant.TABLE_ROLES, uniqueConstraints = {
+@Table(name = TableConstant.TABLE_CATEGORIES, uniqueConstraints = {
         @UniqueConstraint(columnNames = {
-                TableConstant.COLUMN_NAME
+                TableConstant.COLUMN_TITLE
         })
 })
-public class Role {
-
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "title is required!")
     @NaturalId(mutable = true)
     @Column(nullable = false, unique = true)
-    private String name;
+    private String title;
 
-    @Column
     private String description;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<User> users = new HashSet<>();
-
-
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Quiz> quizzes = new HashSet<>();
 }

@@ -1,6 +1,6 @@
-package com.johnsmith.springbootstudentmanagementsystem.security;
+package com.johnsmith.examportal.api.security;
 
-import com.johnsmith.springbootstudentmanagementsystem.constants.SecurityConstant;
+import com.johnsmith.examportal.api.constants.SecurityConstant;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +22,6 @@ import java.io.IOException;
 public class JwtAuthenticationRequestFilter extends OncePerRequestFilter {
     private final JwtUtils jwtUtils;
     private final UserPrincipalService userPrincipalService;
-
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
