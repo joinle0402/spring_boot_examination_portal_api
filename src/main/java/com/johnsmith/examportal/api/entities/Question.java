@@ -31,13 +31,12 @@ public class Question {
 
     @Column(length = 5000)
     private String content;
-    private String description;
     private String optionA;
     private String optionB;
     private String optionC;
     private String optionD;
     private String answer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Quiz quiz;
 }

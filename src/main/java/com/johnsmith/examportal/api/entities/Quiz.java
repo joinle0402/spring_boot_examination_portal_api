@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,25 +30,23 @@ import java.util.Set;
 @Builder
 @ToString
 @Entity
-@Table(name = TableConstant.TABLE_QUIZZES, uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                TableConstant.COLUMN_TITLE
-        })
-})
+@Table(name = TableConstant.TABLE_QUIZZES)
 public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NaturalId(mutable = true)
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String title;
+
+    @Column(length = 1000)
     private String description;
     private Integer maxMark;
     private Integer numberOfQuestion;
-    private Boolean active;
+    private Boolean active = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
     @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

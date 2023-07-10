@@ -64,7 +64,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public User register(RegisterRequest request) {
-        System.out.println("request.getUsername(): " + request.getUsername());
         Optional<User> user = this.userRepository.findByUsername(request.getUsername());
         if (user.isPresent()) {
             throw new ApiException(HttpStatus.CONFLICT, "User already exists!");

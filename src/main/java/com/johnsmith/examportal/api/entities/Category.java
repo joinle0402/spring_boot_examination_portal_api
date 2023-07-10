@@ -1,6 +1,7 @@
 package com.johnsmith.examportal.api.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.johnsmith.examportal.api.constants.TableConstant;
 import jakarta.persistence.CascadeType;

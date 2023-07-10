@@ -17,10 +17,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category create(Category category) {
-        if (this.categoryRepository.existsByTitle(category.getTitle())) {
-            throw new ApiException(HttpStatus.CONFLICT, "Category already exists!");
+        try {
+            return this.categoryRepository.save(category);
+        } catch (Exception exception) {
+            if (exception.getMessage().contains("Unique index or primary key violation")) {
+                throw new ApiException(HttpStatus.CONFLICT, "Category already exists!");
+            }
+            throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
         }
-        return this.categoryRepository.save(category);
     }
 
     @Override
