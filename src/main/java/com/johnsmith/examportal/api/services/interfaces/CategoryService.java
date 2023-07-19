@@ -7,6 +7,7 @@ import java.util.List;
 public interface CategoryService {
     Category create(Category category);
     List<Category> findAll();
+    Category findBySlug(String slug);
     Category findById(Integer id);
     Category update(Category category);
     String delete(Integer id);

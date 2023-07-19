@@ -51,7 +51,11 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/api/v1/auth/register", "/api/v1/auth/login").permitAll();
-                    authorize.requestMatchers("/api/v1/user/**").hasAnyAuthority("USER", "ADMIN");
+                    authorize.requestMatchers("/api/v1/user/*").hasAnyAuthority("USER", "ADMIN");
+                    authorize.requestMatchers("/api/v1/categories/*").hasAnyAuthority("ADMIN");
+                    authorize.requestMatchers("/api/v1/quizzes/*").hasAnyAuthority("ADMIN");
+                    authorize.requestMatchers("/api/v1/questions/*").hasAnyAuthority("ADMIN");
+                    authorize.requestMatchers("/api/v1/scrape").hasAnyAuthority("ADMIN");
                     authorize.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

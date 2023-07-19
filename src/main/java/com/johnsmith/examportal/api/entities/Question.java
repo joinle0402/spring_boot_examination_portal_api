@@ -31,6 +31,7 @@ public class Question {
 
     @Column(length = 5000)
     private String content;
+    private String slug;
     private String optionA;
     private String optionB;
     private String optionC;

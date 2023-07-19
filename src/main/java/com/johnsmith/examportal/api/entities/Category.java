@@ -47,6 +47,7 @@ public class Category {
     @NaturalId(mutable = true)
     @Column(nullable = false, unique = true)
     private String title;
+    private String slug;
 
     private String description;
 

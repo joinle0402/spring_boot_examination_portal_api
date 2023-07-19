@@ -33,6 +33,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category findBySlug(String slug) {
+        return this.categoryRepository.findBySlug(slug)
+                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "Category not found with slug: " + slug));
+    }
+
+    @Override
     public Category findById(Integer id) {
         return this.categoryRepository.findById(id)
                 .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "Category not found with id: " + id));

@@ -27,8 +27,8 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @ToString
+@Builder
 @Entity
 @Table(name = TableConstant.TABLE_QUIZZES)
 public class Quiz {
@@ -39,6 +39,7 @@ public class Quiz {
     @NaturalId(mutable = true)
     @Column(nullable = false)
     private String title;
+    private String slug;
 
     @Column(length = 1000)
     private String description;

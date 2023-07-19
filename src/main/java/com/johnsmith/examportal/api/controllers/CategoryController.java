@@ -36,6 +36,11 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(this.categoryService.findById(id));
     }
 
+    @GetMapping("/slug/{slug}")
+    public ResponseEntity<?> findBySlug(@PathVariable String slug) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.categoryService.findBySlug(slug));
+    }
+
     @PutMapping
     public ResponseEntity<?> update(@Valid @RequestBody Category category) {
         return ResponseEntity.status(HttpStatus.OK).body(this.categoryService.update(category));

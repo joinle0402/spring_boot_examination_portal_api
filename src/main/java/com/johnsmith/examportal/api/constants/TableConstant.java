@@ -12,6 +12,7 @@ public class TableConstant {
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_USER_ID = "user_id";
     public static final String COLUMN_ROLE_ID = "role_id";
+    public static final String COLUMN_QUIZ_ID = "quiz_id";
     public static final String COLUMN_CREATED_AT = "created_at";
     public static final String COLUMN_UPDATED_AT = "updated_at";
     public static final String COLUMN_NAME = "name";

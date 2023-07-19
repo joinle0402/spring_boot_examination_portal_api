@@ -30,7 +30,6 @@ public class JwtAuthenticationRequestFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith(SecurityConstant.BEARER_PREFIX)) {
             String token = authHeader.substring(SecurityConstant.TOKEN_INDEX);
             String username = this.jwtUtils.extractUsername(token);
-
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = this.userPrincipalService.loadUserByUsername(username);
                 if (this.jwtUtils.isTokenValid(token, userDetails)) {

@@ -36,8 +36,8 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @ToString
+@Builder
 @Entity
 @Table(name = TableConstant.TABLE_USERS, uniqueConstraints = {
         @UniqueConstraint(columnNames = { TableConstant.COLUMN_USERNAME })
